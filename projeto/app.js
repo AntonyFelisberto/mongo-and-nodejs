@@ -7,5 +7,10 @@ var app = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
+app.get("/provas-api",(req,res) => {
+    res.status(200).send({
+        message:"esta rota esta a prova da rest api"
+    })
+})
 
 module.exports = app
