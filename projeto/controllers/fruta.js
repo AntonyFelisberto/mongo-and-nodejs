@@ -34,7 +34,7 @@ async function saveFruta(req,res){
 
 async function getFrutas(req, res){
     try {
-        const frutas = await Fruta.find();
+        const frutas = await Fruta.find().sort({"_id":-1});
         res.status(200).send({
             message: frutas
         });
@@ -45,8 +45,24 @@ async function getFrutas(req, res){
     }
 }
 
+async function getFruta(req, res){
+    try {
+        var frutaId = req.params.id
+        const frutas = await Fruta.findById(frutaId);
+        res.status(200).send({
+            message: frutas
+        });
+    } catch (err) {
+        res.status(500).send({
+            message: "Erro na busca dos dados: " + err.message
+        });
+    }
+}
+
+
 module.exports = {
     provas,
     saveFruta,
-    getFrutas
+    getFrutas,
+    getFruta
 }
