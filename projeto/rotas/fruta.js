@@ -7,5 +7,6 @@ var api = express.Router()
 
 api.get("/provas",frutaController.provas)
 api.get("/fruta",frutaController.saveFruta)
+api.get("/frutas",frutaController.getFrutas)
 
 module.exports = api
