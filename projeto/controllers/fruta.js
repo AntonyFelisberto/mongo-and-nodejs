@@ -1,6 +1,7 @@
 "use strict"
 
 var Fruta = require("../models/frutas")
+const { param } = require("../rotas/fruta")
 
 function provas(req,res){
     res.status(200).send({
@@ -59,10 +60,40 @@ async function getFruta(req, res){
     }
 }
 
+async function updateFruta(req, res){
+    try {
+        var frutaId = req.params.id
+        var update = req.body
+        await Fruta.findByIdAndUpdate(frutaId,update)
+        res.status(200).send({
+            message: "Atualizado com sucesso"
+        });
+    } catch (err) {
+        res.status(500).send({
+            message: "Erro na atualizacao dos dados: " + err.message
+        });
+    }
+}
+
+async function deletarFruta(req, res){
+    try{
+        var frutaId = req.params.id
+        await Fruta.deleteOne({_id:frutaId})
+        res.status(200).send({
+            message:"Item deletado com sucesso"
+        })
+    }catch(err){
+        res.status(500).send({
+            message: "Erro na deleção dos dados: " + err.message
+        })
+    }
+}
 
 module.exports = {
     provas,
     saveFruta,
     getFrutas,
-    getFruta
+    getFruta,
+    updateFruta,
+    deletarFruta
 }
